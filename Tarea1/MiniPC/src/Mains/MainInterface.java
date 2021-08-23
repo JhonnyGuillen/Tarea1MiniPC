@@ -1,7 +1,14 @@
-package minipc;
+package Mains;
+
+import Clases.Convertor;
+import Clases.Reader;
 
 
 public class MainInterface extends javax.swing.JFrame {
+    
+    private String filePath = "src/AsmFiles/file.asm";
+    private Reader readers = new Reader();
+    private String fileContent = "";
 
  
     public MainInterface() {
@@ -148,6 +155,10 @@ public class MainInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
+        
+        fileContent = readers.loadFile(filePath);
+        
+        System.out.println(fileContent);
         
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 

@@ -1,4 +1,4 @@
-package minipc;
+package Mains;
 
 
 public class Main {
