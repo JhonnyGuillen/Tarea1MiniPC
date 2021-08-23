@@ -156,6 +156,11 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
         
+        
+        if (!jInputTextFileName.getText().isEmpty()) {
+            filePath = "src/AsmFiles/" + jInputTextFileName.getText().trim();
+        }          
+        
         fileContent = readers.loadFile(filePath);
         
         System.out.println(fileContent);
