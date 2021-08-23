@@ -48,8 +48,37 @@ public class Memory {
     public int getDX(){
         return DX;
     }
+    
+    public void mov(int n, String x){
+        switch(x){
+            case "AX": AX = n;
+            case "BX": BX = n;
+            case "CX": CX = n;
+            case "DX": DX = n;
+        }
+    }
 
-    public int add(){
+    public int load(int x){
+        AC = x;
         return AC;
+    }
+    
+    public int add(int x){
+        AC = AC + x;
+        return AC;
+    }
+    
+    public int sub(int x){
+        AC = AC - x;
+        return AC;
+    }
+    
+    public void store(String x){
+        switch(x){
+            case "AX": AX = AC;
+            case "BX": BX = AC;
+            case "CX": CX = AC;
+            case "DX": DX = AC;
+        }
     }
 }
