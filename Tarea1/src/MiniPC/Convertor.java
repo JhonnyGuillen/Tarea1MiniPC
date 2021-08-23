@@ -1,112 +1,67 @@
 package MiniPC;
 
+import java.math.*;
+
 public class Convertor {
     String [] fragmenter(String comand){
-        String [] fragmented = comand.split(" ");
+        comand = comand.replace("AX,","AX");
+        comand = comand.replace("BX,","BX");
+        comand = comand.replace("CX,","CX");
+        comand = comand.replace("DX,","DX");
+        System.out.println(comand);
+        String [] fragmented = comand.split("\n");
         return fragmented;
     }
 
-    String formater(String [] comands){
+    String formater(String line) {
         String result = "";
-        int size = comands.length;
-        int i = 0;
-        while(comands[i] != null){
-            switch (comands[i]){
-                case "LOAD":
-                    result = result + "0001 ";
-                    break;
-                case "STORE":
-                    result = result + "0010 ";
-                    break;
-                case "MOV":
-                    result = result + "0011 ";
-                    break;
-                case "SUB":
-                    result = result + "0100 ";
-                    break;
-                case "ADD":
-                    result = result + "0101 ";
-                    break;
+        String[] comands = line.split(" ");
+        int i = 2;
+        System.out.println("0 antiguo: " + comands[0] + "\n");
+        switch (comands[0]) {
+            case "LOAD": comands[0] = comands[0].replace("LOAD", "0001 "); break;
+            case "STORE": comands[0] = comands[0].replace("STORE", "0010 "); break;
+            case "MOV": comands[0] = comands[0].replace("MOV", "0011 "); break;
+            case "SUB": comands[0] = comands[0].replace("SUB", "0100 "); break;
+            case "ADD": comands[0] = comands[0].replace("ADD", "0101 "); break;
+        }
+        System.out.println("0 nuevo: " + comands[0] + "\n");
+
+        System.out.println("1 antiguo: " + comands[1] + "\n");
+        switch (comands[1]){
+            case "AX": comands[1]= comands[1].replace("AX", "0001 "); break;
+            case "BX": comands[1]= comands[1].replace("BX", "0010 "); break;
+            case "CX": comands[1]= comands[1].replace("CX", "0011 "); break;
+            case "DX": comands[1]= comands[1].replace("DX", "0100 "); break;
+        }
+        System.out.println("1 nuevo: " + comands[1] + "\n");
+        System.out.println(comands.length);
+        if(comands.length  == 2){
+            result = "00000000";
+        }
+        else{
+            System.out.println("i: " + comands[i]);
+            int a = Integer.parseInt(comands[i]);
+            if(a < 0){
+                result = "1";
             }
-            switch (comands[i+1]){
-                case "AX":
-                case "AX,":
-                    result = result + "0001 ";
-                    break;
-                case "BX":
-                case "BX,":
-                    result = result + "0010 ";
-                    break;
-                case "CX":
-                case "CX,":
-                    result = result + "0011 ";
-                    break;
-                case "DX":
-                case "DX,":
-                    result = result + "0100 ";
-                    break;
+            else{
+                result = "0";
             }
-            switch (comands[i+2]){
-                case "1":
-                    result = result + "00000001 ";
-                    break;
-                case "-1":
-                    result = result + "10000001 ";
-                    break;
-                case "2":
-                    result = result + "00000010 ";
-                    break;
-                case "-2":
-                    result = result + "10000010 ";
-                    break;
-                case "3":
-                    result = result + "00000011 ";
-                    break;
-                case "-3":
-                    result = result + "10000011 ";
-                    break;
-                case "4":
-                    result = result + "00000100 ";
-                    break;
-                case "-4":
-                    result = result + "10000100 ";
-                    break;
-                case "5":
-                    result = result + "00000101 ";
-                    break;
-                case "-5":
-                    result = result + "10000101 ";
-                    break;
-                case "6":
-                    result = result + "00001000 ";
-                    break;
-                case "-6":
-                    result = result + "10001000 ";
-                    break;
-                case "7":
-                    result = result + "00001001 ";
-                    break;
-                case "-7":
-                    result = result + "10001001 ";
-                    break;
-                case "8":
-                    result = result + "00001010 ";
-                    break;
-                case "-8":
-                    result = result + "10001010 ";
-                    break;
-                case "9":
-                    result = result + "00001011 ";
-                    break;
-                case "-9":
-                    result = result + "10001011 ";
-                    break;
-            }
-            if(comands[i+3] == "\n"){
-                result = result + "\n";
-                i = i+3;
+            a = Math.abs(a);
+            switch (a){
+                case 1: result = result + "0000001"; break;
+                case 2: result = result + "0000010"; break;
+                case 3: result = result + "0000011"; break;
+                case 4: result = result + "0000100"; break;
+                case 5: result = result + "0000101"; break;
+                case 6: result = result + "0001000"; break;
+                case 7: result = result + "0001001"; break;
+                case 8: result = result + "0001010"; break;
+                case 9: result = result + "0001011"; break;
             }
         }
-        return result;
+
+        return comands[0] + comands[1] + result;
     }
 }
