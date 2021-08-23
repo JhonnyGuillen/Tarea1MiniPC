@@ -2,6 +2,7 @@ package Mains;
 
 import Clases.Convertor;
 import Clases.Reader;
+import java.util.Stack;
 
 
 public class MainInterface extends javax.swing.JFrame {
@@ -9,6 +10,7 @@ public class MainInterface extends javax.swing.JFrame {
     private String filePath = "src/AsmFiles/file.asm";
     private Reader readers = new Reader();
     private String fileContent = "";
+    private Stack pila = new Stack();
 
  
     public MainInterface() {
