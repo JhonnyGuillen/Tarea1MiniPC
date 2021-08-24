@@ -1,84 +1,185 @@
 package Clases;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Memory {
-    private String codAsm;
-    private String codBin;
+
+    private ArrayList<String> codAsm;
+    private ArrayList<String> codBin;
     private int AC;
     private int AX;
     private int BX;
     private int CX;
     private int DX;
 
-    public Memory(String asm, String bin,int ac,  int a, int b, int c, int d){
-        this.codAsm = asm;
-        this.codBin = bin;
-        this.AC = ac;
-        this.AX = a;
-        this.BX = b;
-        this.CX = c;
-        this.DX = d;
+    public Memory(ArrayList<String> linesAsm, ArrayList<String> linesBin) {
+        this.codAsm = linesAsm;
+        this.codBin = linesBin;
+        this.AC = 0;
+        this.AX = 0;
+        this.BX = 0;
+        this.CX = 0;
+        this.DX = 0;
     }
 
-    public String getCodAsm(){
+    public ArrayList<String> getCodAsm() {
         return codAsm;
     }
 
-    public String getCodBin(){
+    public ArrayList<String> getCodBin() {
         return codBin;
     }
 
-    public int getAC(){
+    public int getAC() {
         return AC;
     }
 
-    public int getAX(){
+    public int getAX() {
         return AX;
     }
 
-    public int getBX(){
+    public int getBX() {
         return BX;
     }
 
-    public int getCX(){
+    public int getCX() {
         return CX;
     }
 
-    public int getDX(){
+    public int getDX() {
         return DX;
     }
     
-    public void mov(int n, String x){
-        switch(x){
-            case "AX": AX = n;
-            case "BX": BX = n;
-            case "CX": CX = n;
-            case "DX": DX = n;
+    public void clean(){
+        AC = 0;
+        AX = 0;
+        BX = 0;
+        CX = 0;
+        DX = 0;
+    }
+
+    public void executeLine(int i) {
+        String comand = codAsm.get(i);
+        comand = comand.replace("AX,", "AX");
+        comand = comand.replace("BX,", "BX");
+        comand = comand.replace("CX,", "CX");
+        comand = comand.replace("DX,", "DX");
+        String[] comands = comand.split(" ");
+        
+        String instruction = comands[0];
+        String dir = comands[1];
+        int movValue = 0;
+        
+        if (comands.length>2) {
+            movValue = Integer.parseInt(comands[2]);  
+        }
+        
+        System.out.println("Line: " + instruction + " " + dir + " " + movValue);
+        
+        
+        switch (instruction) {
+            case "MOV":
+                mov(movValue, dir);
+                break;
+            case "LOAD":
+                load(dir);
+                break;
+            case "ADD":
+                add(dir);
+                break;
+            case "SUB":
+                sub(dir);
+                break;
+            case "STORE":
+                store(dir);
+                break;
         }
     }
 
-    public int load(int x){
-        AC = x;
-        return AC;
-    }
-    
-    public int add(int x){
-        AC = AC + x;
-        return AC;
-    }
-    
-    public int sub(int x){
-        AC = AC - x;
-        return AC;
-    }
-    
-    public void store(String x){
-        switch(x){
-            case "AX": AX = AC;
-            case "BX": BX = AC;
-            case "CX": CX = AC;
-            case "DX": DX = AC;
+    public void mov(int n, String x) {
+        switch (x) {
+            case "AX":
+                AX = n;
+                break;
+            case "BX":
+                BX = n;
+                break;
+            case "CX":
+                CX = n;
+                break;
+            case "DX":
+                DX = n;
+                break;
         }
     }
+
+    public void load(String x) {
+        switch (x) {
+            case "AX":
+                AC = AX;
+                break;
+            case "BX":
+                AC = BX;
+                break;
+            case "CX":
+                AC = CX;
+                break;
+            case "DX":
+                AC = DX;
+                break;
+        }
+    }
+
+    public void add(String x) {
+        switch (x) {
+            case "AX":
+                AC = AC + AX;
+                break;
+            case "BX":
+                AC = AC + BX;
+                break;
+            case "CX":
+                AC = AC + CX;
+                break;
+            case "DX":
+                AC = AC + DX;
+                break;
+        }
+    }
+
+    public void sub(String x) {
+        switch (x) {
+            case "AX":
+                AC = AC - AX;
+                break;
+            case "BX":
+                AC = AC - BX;
+                break;
+            case "CX":
+                AC = AC - CX;
+                break;
+            case "DX":
+                AC = AC - DX;
+                break;
+        }
+    }
+
+    public void store(String x) {
+        switch (x) {
+            case "AX":
+                AX = AC;
+                break;
+            case "BX":
+                BX = AC;
+                break;
+            case "CX":
+                CX = AC;
+                break;
+            case "DX":
+                DX = AC;
+                break;
+        }
+    }   
+    
 }

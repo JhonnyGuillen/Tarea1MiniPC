@@ -1,7 +1,9 @@
 package Mains;
 
 import Clases.Convertor;
+import Clases.Memory;
 import Clases.Reader;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class MainInterface extends javax.swing.JFrame {
@@ -164,17 +166,22 @@ public class MainInterface extends javax.swing.JFrame {
 
         System.out.println(fileContent);
 
-        /*for (int i = 0; i < fileContent.length(); i++) {
-            pila.push(fileContent.charAt(i));
-        }*/
+        ArrayList<String> linesBin = new ArrayList<String>();
+        for (int i = 0; i < readers.getFileLines().size(); i++) {
+            linesBin.add(convertor.formater(convertor.fragmenter(fileContent).get(i)));
+        }
+
+        Memory memoryLine = new Memory(readers.getFileLines(), linesBin);
 
         for (int i = 0; i < readers.getFileLines().size(); i++) {
 
-            jTableMain.setValueAt(readers.getFileLines().get(i), i, 0);
-            jTableMain.setValueAt(convertor.formater(convertor.fragmenter(fileContent).get(i)), i, 1);
-            //jTableMain.setValueAt("AC", i, 2);
-            //jTableMain.setValueAt("AX", i, 2);
-            //jTableMain.setValueAt("BX", i, 2);
+            memoryLine.executeLine(i);
+
+            jTableMain.setValueAt(memoryLine.getCodAsm().get(i), i, 0);
+            jTableMain.setValueAt(memoryLine.getCodBin().get(i), i, 1);
+            jTableMain.setValueAt(memoryLine.getAC(), i, 2);
+            jTableMain.setValueAt(memoryLine.getAX(), i, 3);
+            jTableMain.setValueAt(memoryLine.getBX(), i, 4);
 
         }
 
