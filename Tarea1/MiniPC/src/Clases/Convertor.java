@@ -57,17 +57,12 @@ public class Convertor {
                 result = "0";
             }
             a = Math.abs(a);
-            switch (a){
-                case 1: result = result + "0000001"; break;
-                case 2: result = result + "0000010"; break;
-                case 3: result = result + "0000011"; break;
-                case 4: result = result + "0000100"; break;
-                case 5: result = result + "0000101"; break;
-                case 6: result = result + "0001000"; break;
-                case 7: result = result + "0001001"; break;
-                case 8: result = result + "0001010"; break;
-                case 9: result = result + "0001011"; break;
+            String bin = Integer.toBinaryString(a);
+            
+            while(bin.length() < 7){
+                bin = "0" + bin;
             }
+            result = result + bin;
         }
 
         return comands[0] + comands[1] + result;
