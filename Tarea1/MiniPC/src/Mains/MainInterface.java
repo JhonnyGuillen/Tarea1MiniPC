@@ -19,6 +19,7 @@ public class MainInterface extends javax.swing.JFrame {
         setTitle("Tarea 1");
         initComponents();
         this.setLocationRelativeTo(null);
+        jInputTextFileName.setText("file.asm");
     }
 
     @SuppressWarnings("unchecked")
@@ -30,6 +31,7 @@ public class MainInterface extends javax.swing.JFrame {
         jInputTextFileName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMain = new javax.swing.JTable();
+        jBtnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -565,6 +567,16 @@ public class MainInterface extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableMain);
 
+        jBtnRefresh.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnRefresh.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/refresh.png"))); // NOI18N
+        jBtnRefresh.setText("Reset");
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -576,6 +588,8 @@ public class MainInterface extends javax.swing.JFrame {
                         .addComponent(jInputTextFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
                 .addContainerGap())
@@ -586,7 +600,8 @@ public class MainInterface extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jInputTextFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                 .addContainerGap())
@@ -611,6 +626,7 @@ public class MainInterface extends javax.swing.JFrame {
         if (!jInputTextFileName.getText().isEmpty()) {
             filePath = "src/AsmFiles/" + jInputTextFileName.getText().trim();
         }
+       
 
         fileContent = readers.loadFile(filePath);
 
@@ -637,6 +653,14 @@ public class MainInterface extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jBtnBuscarActionPerformed
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        
+        MainInterface b = new MainInterface();
+        b.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -672,6 +696,7 @@ public class MainInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBuscar;
+    private javax.swing.JButton jBtnRefresh;
     private javax.swing.JTextField jInputTextFileName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
