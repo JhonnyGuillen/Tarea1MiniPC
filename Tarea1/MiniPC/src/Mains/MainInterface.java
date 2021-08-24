@@ -4,23 +4,21 @@ import Clases.Convertor;
 import Clases.Reader;
 import java.util.Stack;
 
-
 public class MainInterface extends javax.swing.JFrame {
-    
+
     private String filePath = "src/AsmFiles/file.asm";
     private Reader readers = new Reader();
     private String fileContent = "";
     private Stack pila = new Stack();
+    private Convertor convertor = new Convertor();
 
- 
     public MainInterface() {
         setResizable(true);
-        setTitle("Tarea 1");        
+        setTitle("Tarea 1");
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -157,19 +155,32 @@ public class MainInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarActionPerformed
-        
-        
+
         if (!jInputTextFileName.getText().isEmpty()) {
             filePath = "src/AsmFiles/" + jInputTextFileName.getText().trim();
-        }          
-        
+        }
+
         fileContent = readers.loadFile(filePath);
-        
+
         System.out.println(fileContent);
-        
+
+        /*for (int i = 0; i < fileContent.length(); i++) {
+            pila.push(fileContent.charAt(i));
+        }*/
+
+        for (int i = 0; i < readers.getFileLines().size(); i++) {
+
+            jTableMain.setValueAt(readers.getFileLines().get(i), i, 0);
+            jTableMain.setValueAt(convertor.formater(convertor.fragmenter(fileContent).get(i)), i, 1);
+            //jTableMain.setValueAt("AC", i, 2);
+            //jTableMain.setValueAt("AX", i, 2);
+            //jTableMain.setValueAt("BX", i, 2);
+
+        }
+
+
     }//GEN-LAST:event_jBtnBuscarActionPerformed
 
- 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

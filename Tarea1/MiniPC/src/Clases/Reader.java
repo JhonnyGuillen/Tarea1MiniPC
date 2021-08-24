@@ -1,8 +1,11 @@
 package Clases;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Reader {
+    
+    private ArrayList<String> fileLines = new ArrayList<String>();
 
     public String loadFile(String asmr){
         File file = null;
@@ -19,6 +22,7 @@ public class Reader {
             while((line = br.readLine()) != null){
                 //System.out.println(line);
                 comand = comand + line + "\n";
+                fileLines.add(line);
             }
             return comand;
         }catch (Exception e){
@@ -34,4 +38,10 @@ public class Reader {
         }
         return null;
     }
+
+    public ArrayList<String> getFileLines() {
+        return fileLines;
+    }
+    
+    
 }
